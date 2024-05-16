@@ -1,0 +1,82 @@
+1. CREATE DATABASE staff_details;
+
+2. CREATE DATABASE fir_details;
+
+3. CREATE DATABSE criminal;
+
+4. use staff_details;
+
+5. CREATE TABLE staff_details.staff_details (
+  Reg_Id INT NOT NULL,
+  Name VARCHAR(45) NOT NULL,
+  Rank VARCHAR(45) NULL,
+  Year_of_joining INT NULL,
+  Address VARCHAR(45) NULL,
+  Phn no BIGINT(12) NULL,
+  Salary FLOAT,
+  PRIMARY KEY (Reg_Id));
+
+6. USE DATABASE criminal;
+ 
+7. CREATE TABLE criminal.criminal_record (
+  Reg_id INT NOT NULL,
+  Name VARCHAR(45) NOT NULL,
+  Age INT NULL,
+  Phoneno BIGINT(12) NOT NULL,
+  Address VARCHAR(50) NULL,
+  Case_no INT NULL,
+  Arrested_for VARCHAR(45) NOT NULL,
+  Punishment VARCHAR(45) NULL,
+  PRIMARY KEY (Reg_id));
+
+8. USE DATABASE fir_details;
+
+9. CREATE TABLE fir_details.crime_register (
+  Case_num INT NOT NULL,
+  Case_type VARCHAR(45) NOT NULL,
+  Victim VARCHAR(45) NOT NULL,
+  Witness VARCHAR(45) NULL,
+  Complainer VARCHAR(45) NOT NULL,
+  Accussed VARCHAR(45) NOT NULL,
+  Punishment VARCHAR(45) NULL,
+  PRIMARY KEY (Case_no));
+
+10. CREATE TABLE fir_details.victim_details (
+  Case_no INT NOT NULL,
+  victim_name VARCHAR(45) NOT NULL,
+  Age INT NULL,
+  Address VARCHAR(45) NULL,
+  Phn_no BIGINT(12) NULL,
+  PRIMARY KEY (Case_no),
+  CONSTRAINT Case_no
+    FOREIGN KEY (Case_no)
+    REFERENCES fir_details.crime_register (Case_no)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+11. CREATE TABLE fir_details.witness_details (
+  Casenum INT NOT NULL,
+  witness_name VARCHAR(45) NOT NULL,
+  Age INT NULL,
+  Address VARCHAR(45) NULL,
+  Phn_no VARCHAR(45) NULL,
+  PRIMARY KEY (Casenum),
+  CONSTRAINT Casenum
+    FOREIGN KEY (Casenum)
+    REFERENCES fir_details.victim_details (Case_no)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+12. CREATE TABLE fir_details.complainer_details (
+  Caseno INT NOT NULL,
+  complainer_name` VARCHAR(45) NOT NULL,
+  Age INT NULL,
+  Address VARCHAR(45) NULL,
+  Phn_no VARCHAR(45) NULL,
+  PRIMARY KEY (Caseno),
+  CONSTRAINT Casenum
+    FOREIGN KEY (Caseno)
+    REFERENCES fir_details.witness_details (Casenum)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
